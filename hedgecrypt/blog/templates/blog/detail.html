@@ -7,6 +7,11 @@
     <div class="hero-body">
         <div class="container">
             <section class="section">
+                {% if post.image %}
+                    <figure class="image mb-6">
+                        <img src="{{ post.image.url }}" style="size: 50%;">
+                    </figure>
+                {% endif %}
                 <div class="columns">
                     <div class="column is-8 is-offset-2">
                             <div class="content is-medium">

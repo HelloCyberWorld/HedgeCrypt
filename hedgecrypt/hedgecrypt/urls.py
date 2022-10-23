@@ -15,11 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import frontpage, about
+from core.views import about, robots_txt, index
+from blog.views import home, privacy_policy, terms_conditions
+
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import CategorySitemap, PostSitemap
+
+sitemaps = {"category": CategorySitemap, "post": PostSitemap}
 
 urlpatterns = [
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps,}),
+    path("robots.txt", robots_txt, name = "robots_txt"),
     path("admin/", admin.site.urls),
     path("about/", about, name="about"),
+    path("index/", index, name="index"),
+    path("privacy_policy/", privacy_policy, name="privacy_policy"),
+    path("terms_conditions/", terms_conditions, name="terms_conditions"),
     path("", include("blog.urls")),
-    path("", frontpage, name="frontpage"),
-]
+    # path("", frontpage, name="frontpage"),
+    path("", home, name="home"),
+    # path("register/", include("django.contrib.auth.urls")),
+    # path("register/", include("core.urls")),
+    
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

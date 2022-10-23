@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}HedgeCrypt</title>
+
+    <!-- Mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="This is meta description">
+    <meta name="author" content="Amine">
+    <meta name="generator" content="Amine" />
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="{% static 'core/css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/slick.css' %}">
+    <script src="https://kit.fontawesome.com/99b0590667.js" crossorigin="anonymous"></script>
+
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}" media="screen">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="{% static 'core/img/Logo_HC.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'core/img/Logo_HC.png' %}" type="image/x-icon">
+
+    <meta property="og:title" content="HedgeCrypt" />
+    <meta property="og:description" content="This is meta description" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:updated_time" content="2020-03-15T15:40:24+06:00" />
+  </head>
+
+  <body>
+  <!-- navigation -->
+  <nav class="navigation navbar is-fixed-top is-align-items-center is-transparent" role="navigation"
+  aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img class="img-fluid" width="50px" src="{% static 'core/img/Logo_HC.png' %}"
+        alt="Logo HedgeCrypt">      
+      </a>
+
+      <a role="button" class="navbar-burger burger mt-2" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start mx-auto">
+        <li class="navbar-item">
+          <a class="navbar-link is-arrowless" href="/">Home</a>
+        </li>
+        
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Categories
+          </a>
+          <div class="navbar-dropdown">
+          {% for post in all_posts %}
+            <a class="navbar-item" href="/{{ post.category.slug }}">{{ post.category }}</a>
+          {% endfor %}
+          </div>
+        </div>
+
+        <li class="navbar-item">
+          <a class="navbar-link is-arrowless" href="contact.html">About us</a>
+        </li>
+
+        <li class="navbar-item">
+          <a class="navbar-link is-arrowless" href="contact.html">Contact us</a>
+        </li>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Account
+          </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/register">Sign in</a>
+
+            <a class="navbar-item" href="/register">Sign up</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-end is-align-items-center ml-0">
+        <select class="m-2 border-0 is-transparent is-border-0" id="select-language">
+          <option id="en" value="" selected>En</option>
+          <option id="fr" value="">Fr</option>
+        </select>
+
+        <form method="get" action="{% url 'search' %}">
+          <div class="control has-icons-left">
+            <input class="input is-rounded" name="query" type="text" placeholder="Search">
+            <span class="icon is-left">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+        {% block content %}
+        {% endblock %}
+
+    <!-- Social + Footer -->
+
+    <footer class="footer">
+      <svg class="footer-border" height="214" viewBox="0 0 2204 214" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M2203 213C2136.58 157.994 1942.77 -33.1996 1633.1 53.0486C1414.13 114.038 1200.92 188.208 967.765 118.127C820.12 73.7483 263.977 -143.754 0.999958 158.899"
+          stroke-width="2" />
+      </svg>
+
+      <div class="container">
+        <div class="columns is-multiline is-align-items-center">
+        <div class="column is-5-desktop has-text-centered has-text-left-desktop mb-4">
+            <ul class="footer-list mb-0">
+              <li class="list-inline-item"><a href="/privacy_policy">Privacy Policy</a></li>
+              <li class="list-inline-item"><a href="/terms_conditions">Terms Conditions</a></li>
+            </ul>
+        </div>
+        <div class="column is-2-desktop has-text-centered mb-4">
+          <img class="img-fluid" width="50px" src="{% static 'core/img/Logo_HC.png' %}"
+          alt="Logo HedgeCrypt">    
+        </div>
+        <div class="column is-5-desktop has-text-right-desktop has-text-centered mb-4">
+          HedgeCrypt - Copyright © 
+        </div>
+        <div class="column is-12">
+            <div class="border-bottom border-default"></div>
+        </div>
+        </div>
+    </div>
+    </footer>
+
+
+    <!-- JS Plugins -->
+    <script src="{% static 'core/js/jquery.min.js' %}"></script>
+
+    <script src="{% static 'core/js/slick.min.js' %}"></script>
+
+    <script src="{% static 'core/js/instafeed.min.js' %}"></script>
+
+
+    <!-- Main Script -->
+    <script src="{% static 'core/js/script.js' %}"></script>
+  </body>
+
+</html>

@@ -1,5 +1,9 @@
+from operator import length_hint
 from tabnanny import verbose
 from django.db import models
+from ckeditor.fields import RichTextField
+
+import uuid
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -12,19 +16,38 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return '/%s/' % self.slug
+    
+
 class Post(models.Model):
+    ACTIVE = "active"
+    DRAFT = "draft"
+    CHOICES_STATUS = ( 
+        (ACTIVE, "Active"),
+        (DRAFT, "Draft")
+    )
     category = models.ForeignKey(Category, related_name="posts", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     intro = models.TextField()
-    body = models.TextField()
+    body = RichTextField(blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    # created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE )
+    status = models.CharField(max_length=10, choices= CHOICES_STATUS, default=ACTIVE)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
     class Meta:
         ordering = ("-created_at",)
     
     def __str__(self):
         return self.title
+
+    def get_category(self):
+        return self.category
+    
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.category.slug, self.slug)
 
 
 class Comment(models.Model):

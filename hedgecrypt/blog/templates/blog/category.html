@@ -1,29 +1,151 @@
-{% extends "core/base.html" %}
-
+{% extends "core/index.html" %}
+{% load static %}
 {% block title %} {{ category.title }} | {% endblock %}
 
 {% block content %}
-    <section class="hero ">
-        <div class="hero-body">
-            <div class="container">
-                <section class="section">
-                    <div class="columns">
-                        <div class="column is-8 is-offset-2">
-                            {% for post in category.posts.all %}
-                                <div class="content is-medium">
-                                    <a href="{% url 'post_detail' post.category.slug post.slug %}">
-                                        <h2 class="subtitle is-4">{{post.created_at|timesince}} ago</h2>
-                                        <h1 class="title">{{ post.title }}</h1>
-                                        <p>{{post.intro}}</p>
-                                    </a>
-                                </div>
-                            {% endfor %}
-
-                        </div>
+<section class="section">
+    <div class="py-4"></div>
+    <div class="container">
+        <div class="columns is-multiline is-desktop">
+            <div class="column is-8-desktop">
+                <h1 class="h2 mb-5">Showing items from <mark>{{ category.title }}</mark></h1>
+                {% for post in posts %}
+                <br>
+                <article class="card mb-4">
+                    <div class="post-slider">
+                        <img src="{{ post.image.url }}" class="card-img-sm" alt="post-thumb">
                     </div>
-                </section>
+                    <div class="card-body">
+                        <h3 class="mb-3"><a class="post-title" href="post-detail.html">{{ post.title }}</a></h3>
+                        <ul class="card-meta list-inline">
+                            <li class="list-inline-item">
+                                {{ post.created_at }}
+                            </li>
+                            <li class="list-inline-item">
+                                <ul class="card-meta-tag list-inline">
+                                    <li class="list-inline-item"><a href="/{{ post.category.slug }}">{{ post.category }}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>{{ post.intro }}</p>
+                        <a href="post-detail.html" class="btn btn-outline-primary">Read More</a>
+                    </div>
+                </article>
+                {% empty %}
+                <div class="content">
+                    <p>There is no post in this category... </p>
+                </div>
+                {% endfor %}
             </div>
+            <aside class="column is-4-desktop @@sidebar">
+                <!-- Search -->
+                <div class="widget">
+                  <h4 class="widget-title"><span>Search</span></h4>
+                  <form action="#!" class="widget-search">
+                    <input class="mb-3" id="search-query" name="s" type="search" placeholder="Type &amp; Hit Enter...">
+                    <i class="ti-search"></i>
+                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                  </form>
+                </div>
+              
+              <!-- about US -->
+              <div class="widget widget-about">
+                  <h4 class="widget-title">Hi, we are <strong> HedgeCrypt Team </strong> </h4>
+                  <img class="img-fluid" width="50px" src="{% static 'core/img/Logo_HC.png' %}" alt="HedgCrypt Logo">
+                  <p> You wanna know more about us ? Come check us on socials </p>
+              
+                  <a href="about-us.html" class="btn btn-primary mb-2">About Us</a>
+              </div>
+              
+              <!-- authors -->
+              <div class="widget widget-author">
+                  <h4 class="widget-title">Authors</h4>
+                  <div class="media align-items-center">
+                      <div class="mr-3">
+                          <img class="widget-author-image" src="{% static 'core/img/amine.jpeg' %}" alt="Amine">
+                      </div>
+                      <div class="media-body">
+                          <h5 class="mb-1"><a class="post-title" href="author-single.html">Amine</a></h5>
+                          <span>Author &amp; developer of the <strong style="color: #FF387E;"> HedgeCrypt</strong>
+                              website</span>
+                      </div>
+                  </div>
+                  <div class="media align-items-center">
+                      <div class="mr-3">
+                          <img class="widget-author-image" src="{% static 'core/img/Sami.jpeg' %}" alt="Sami">
+                      </div>
+                      <div class="media-body">
+                          <h5 class="mb-1"><a class="post-title" href="author-single.html">Sami</a></h5>
+                          <span>Author &amp; developer of the <strong style="color: #FF387E;"> HedgeCrypt</strong>
+                              website</span>
+                      </div>
+                  </div>
+                  <div class="media align-items-center">
+                      <div class="mr-3">
+                          <img class="widget-author-image" src="{% static 'core/img/yassmine.jpeg' %}" alt="Yassmine">
+                      </div>
+                      <div class="media-body">
+                          <h5 class="mb-1"><a class="post-title" href="author-single.html">Yassmine</a></h5>
+                          <span>Author &amp;developer of the <strong style="color: #FF387E;"> HedgeCrypt</strong>
+                              website</span>
+                      </div>
+                  </div>
+              </div>
+              <!-- Search -->
+              
+              <div class="widget">
+                  <h4 class="widget-title"><span>Never Miss A News</span></h4>
+                  <form action="#!" method="post" name="mc-embedded-subscribe-form" target="_blank" class="widget-search">
+                      <input class="mb-3" id="search-query" name="s" type="search" placeholder="Your Email Address">
+                      <i class="ti-email"></i>
+                      <button type="submit" class="btn btn-primary btn-block" name="subscribe">Subscribe now</button>
+                      <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                          <input type="text" name="b_463ee871f45d2d93748e77cad_a0a2c6d074" tabindex="-1">
+                      </div>
+                  </form>
+              </div>
+              
+              <!-- categories -->
+              <div class="widget widget-categories">
+                  <h4 class="widget-title"><span>Categories</span></h4>
+                  <ul class="list-unstyled widget-list">
+                      {% for category in categories %}
+                      <li><a href="{%  url 'category_detail' category.slug %}" class="d-flex">{{ category.title }}</a>
+                      </li>
+                      {% endfor %}
+                  </ul>
+              </div><!-- tags -->
+              <div class="widget">
+                  <h4 class="widget-title"><span>Tags</span></h4>
+                  <ul class="widget-list-inline widget-card">
+                      {% for category in categories %}
+                      <li class="list-inline-item"><a href="{%  url 'category_detail' category.slug %}">{{ category.title }}</a></li>
+                      {% endfor %}
+                  </ul>
+              
+              </div><!-- recent post -->
+              <div class="widget">
+                  <h4 class="widget-title">Recent Post</h4>
+                  <!-- post-item -->
+                  {% for random_post in random_posts %}
+                  <article class="widget-card">
+                      <div class="is-flex">
+                          <img class="card-img-sm" src="{{ random_post.image.url }}">
+                          <div class="ml-3">
+                              <h5><a class="post-title" href="post/elements/">{{ random_post.title }}</a></h5>
+                              <ul class="card-meta mt-3">
+                                  <li class="list-inline-item mb-0">
+                                      <i class="ti-calendar"></i>{{ random_post.created_at }}
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </article>
+                  {% endfor %}
+              </div>
+              </aside>
+
         </div>
-    </section>
-            
+    </div>
+</section>
 {% endblock %}

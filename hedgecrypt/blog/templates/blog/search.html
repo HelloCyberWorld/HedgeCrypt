@@ -1,0 +1,57 @@
+
+{% extends "core/index.html" %}
+
+{% load static %}
+{% block title %} Search | {% endblock %}
+{% block content %}
+<div class="py-3"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline is-desktop is-justify-content-center">
+      <div class="column is-10-desktop mb-3">
+        <h1 class="h2 mb-4">Search results
+        </h1>
+      </div>
+      <div class="column is-10-desktop">
+
+        {% for post in posts %}
+        <article class="card mb-5">
+            <div class="columns is-desktop card-body">
+              <div class="column is-4-desktop">
+                <div class="post-slider slider-sm">
+                  <img src="{{ post.image.url }}" class="card-img" alt="post-thumb" style="height:200px; object-fit: cover;">
+                </div>
+              </div>
+              <div class="column is-8-desktop">
+                <h3 class="h4 mb-3"><a class="post-title" href="post-detail.html">{{ post.title }}</a></h3>
+                <ul class="card-meta list-inline">
+                  
+                  <li class="list-inline-item">
+                    <i class="ti-calendar"></i>{{ post.created_at }}
+                  </li>
+                  <li class="list-inline-item">
+                    <ul class="card-meta-tag list-inline">
+                      <li class="list-inline-item"><a href="tags.html">{{ post.category }}</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <p>{{ post.intro }}</p>
+                <a href="post-detail.html" class="btn btn-outline-primary">Read More</a>
+              </div>
+            </div>
+          </article>
+        
+        {% empty %}
+                            <div class="content mb-6">
+                                <p>No results for the given query... </p>    
+                            </div>
+        {% endfor %}
+    </div>
+
+       
+    </div>
+  </div>
+</section>
+            
+{% endblock %}
