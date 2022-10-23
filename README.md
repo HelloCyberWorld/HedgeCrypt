@@ -44,5 +44,8 @@ Now, add /admin to the URL like shown bellow
 
     `http://localhost:8000/admin` 
 
-
 Type the username and password and you'll get redirected to the admin page, where you can do whatever you want.
+
+# What's next 🚀
+
+A lot of thingzzzz ... Comments ain't wor'king atm, the search page is not totally working, I want to add login and account management
